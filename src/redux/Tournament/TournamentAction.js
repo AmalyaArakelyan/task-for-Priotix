@@ -1,8 +1,9 @@
-import { SEARCH_RESULT, ERROR, CLEAR_ERROR , SELECT, DELETE} from './Types';
+import { SEARCH_RESULT, ERROR, CLEAR_ERROR , SELECT, DELETE, LOADING} from './Types';
 import axios from 'axios';
 import { API } from "../../config/config.json";
 
 export const searchTournament = () => {
+    
     return async (dispatch, getState) => {
         const keyword= getState().search.keyword
         if(!keyword){
@@ -21,6 +22,10 @@ export const searchTournament = () => {
         }
         
         try {
+            dispatch({
+                type: LOADING,
+                payload: true
+            });
             const response = await axios.get(`${API}search`, {
                 'params': {
                     q:keyword,
@@ -38,6 +43,10 @@ export const searchTournament = () => {
                 });
             }else{
                 dispatch({
+                    type: SEARCH_RESULT,
+                    payload: []
+                });
+                dispatch({
                     type: ERROR,
                     payload: {
                         message:"No search result",
@@ -52,6 +61,11 @@ export const searchTournament = () => {
                 type: ERROR,
                 payload: {...err, type:'error'}
             })
+        } finally {
+            dispatch({
+                type: LOADING,
+                payload: false
+            });
         }
         
     };

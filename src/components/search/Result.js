@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 //Components
 import Item from "./Item.js"
 import Error from "./Error.js"
+import Loading from "../layout/Loading.js"
 //Actions
 import {searchTournament, selectItem, deleteItem} from "../../redux/Tournament/TournamentAction.js"
 import {ListGroup} from "react-bootstrap";
@@ -12,7 +13,7 @@ import {ListGroup} from "react-bootstrap";
 function Result(props) {
     const {
         keyword ,
-        location,
+        loading,
         searchTournament,
         error,
         searchResult,
@@ -33,6 +34,7 @@ function Result(props) {
     
     return (
         <div className="result">
+            
             {searchResult && searchResult.length ?
                 <div className="list">
                     <ListGroup>
@@ -49,6 +51,8 @@ function Result(props) {
                         }
                     </ListGroup>
                 </div>
+                : loading?
+                    <Loading/>
                 : <Error error={error}/>
             }
         </div>
@@ -60,7 +64,7 @@ const mapStateToProps = state => {
         keyword:state.search.keyword,
         searchResult:state.tournament.searchResult,
         selected:state.tournament.selected,
-        location:state.routing,
+        loading:state.tournament.loading,
         error:state.tournament.error,
     };
 };
