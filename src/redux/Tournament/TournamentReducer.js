@@ -1,7 +1,9 @@
-import {SEARCH_RESULT, ERROR, CLEAR_ERROR } from "./Types.js";
-
+import {SEARCH_RESULT, ERROR, CLEAR_ERROR, SELECT, DELETE } from "./Types.js";
+const selectedFromStorage = localStorage.getItem('selected');
+const selected = JSON.parse(selectedFromStorage)
 const initState = {
       searchResult:null,
+      selected: selected || {},
       error:null,
 };
 export const TournamentReducer = (state = initState, action) => {
@@ -20,6 +22,16 @@ export const TournamentReducer = (state = initState, action) => {
                   return {
                         ...state,
                         error: null,
+                  };
+            case SELECT:
+                  return {
+                        ...state,
+                        selected: {...action.payload},
+                  };
+            case DELETE:
+                  return {
+                        ...state,
+                        selected: {...action.payload},
                   };
             default:
                   return state;

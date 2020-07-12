@@ -1,10 +1,8 @@
-import { SEARCH_RESULT, ERROR, CLEAR_ERROR } from './Types';
+import { SEARCH_RESULT, ERROR, CLEAR_ERROR , SELECT, DELETE} from './Types';
 import axios from 'axios';
 import { API } from "../../config/config.json";
 
 export const searchTournament = () => {
-    const result = [];
-    
     return async (dispatch, getState) => {
         const keyword= getState().search.keyword
         if(!keyword){
@@ -23,29 +21,28 @@ export const searchTournament = () => {
         }
         
         try {
-            const response = await axios.get(`${API}/search`, {
+            const response = await axios.get(`${API}search`, {
                 'params': {
                     q:keyword,
                     index:'tournament'
                 }
             });
-            console.log(response, 'brands')
-            debugger
-            if(response.data && response.data.length === 0){
+            if(response.data && response.data[0] && response.data[0].documents && response.data[0].documents.length){
+                console.log(response.data[0].documents, 'brands')
+                dispatch({
+                    type: SEARCH_RESULT,
+                    payload: response.data[0].documents
+                });
+                dispatch({
+                    type: CLEAR_ERROR
+                });
+            }else{
                 dispatch({
                     type: ERROR,
                     payload: {
                         message:"No search result",
                         type:'info'}
                 })
-            }else{
-                dispatch({
-                    type: SEARCH_RESULT,
-                    payload: response
-                });
-                dispatch({
-                    type: CLEAR_ERROR
-                });
             }
             
         
@@ -56,6 +53,31 @@ export const searchTournament = () => {
                 payload: {...err, type:'error'}
             })
         }
+        
+    };
+};
+
+export const selectItem = (item) => {
+    return async (dispatch, getState) => {
+        const selected = getState().tournament.selected
+        selected[item.id] = item
+        localStorage.setItem('selected', JSON.stringify(selected));
+        dispatch({
+            type: SELECT,
+            payload: selected
+        });
+        
+    };
+};
+export const deleteItem = (id) => {
+    return async (dispatch, getState) => {
+        const selected = getState().tournament.selected
+        delete selected[id]
+        localStorage.setItem('selected', JSON.stringify(selected));
+        dispatch({
+            type: SELECT,
+            payload: selected
+        });
         
     };
 };

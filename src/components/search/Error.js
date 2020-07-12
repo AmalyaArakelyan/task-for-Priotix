@@ -5,7 +5,7 @@ export default function Error(props) {
     const {error} = props
     return (
         error?
-        <div className={`error ${error.type}`}>
+        <div className={`error error-${error.type}`}>
             {error.message}
         </div>
         :null

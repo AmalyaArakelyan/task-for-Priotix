@@ -2,11 +2,27 @@
 .error{
   color:red
 }
-.warning{
+.error-warning{
   color:#c69500;
 }
-.info{
+.error-info{
   color:#0c5460;
+}
+.image{
+  min-width: 70px;
+  width: 100px;
+  img{
+    width: 100%;
+  }
+}
+.added{
+  position: absolute;
+  top:0;
+  right:0;
+  width: 25px;
+  img{
+    width: 100%;
+  }
 }
 .navbar-dark{
   .navbar-brand{
@@ -32,4 +48,22 @@
 .result{
   max-width: 500px;
   margin: 0 auto;
+}
+.item{
+  position: relative;
+  display: flex;
+  text-align: left;
+  .info{
+    padding-left: 10px;
+  }
+  h2{
+    font-family: $main-font;
+    color:$main-color;
+    font-size:18px;
+  }
+  p{
+    font-family: $main-font;
+    color:$main-color-darck;
+    font-size:14px;
+  }
 }
