@@ -2,6 +2,12 @@
 .error{
   color:red
 }
+.warning{
+  color:#c69500;
+}
+.info{
+  color:#0c5460;
+}
 .navbar-dark{
   .navbar-brand{
     color:$main-color;
@@ -10,4 +16,20 @@
       color:$main-color;
     }
   }
+}
+.title{
+  font-family: $main-font;
+  color:$main-color-darck;
+  font-size:30px;
+  margin:25px 10px
+}
+.sub-title{
+  font-family: $main-font;
+  color:$main-color;
+  font-size:20px;
+  margin:10px 10px
+}
+.result{
+  max-width: 500px;
+  margin: 0 auto;
 }

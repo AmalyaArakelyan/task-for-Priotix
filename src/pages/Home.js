@@ -9,6 +9,7 @@ export default function Home() {
             <h3 className="sub-title">Search in Tournament</h3>
     
             <Search />
+            <Result />
         </div>
     );
 }
