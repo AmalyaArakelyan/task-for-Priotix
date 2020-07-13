@@ -1,4 +1,4 @@
-import { SEARCH_RESULT, ERROR, CLEAR_ERROR , SELECT, DELETE, LOADING} from './Types';
+import { SEARCH_RESULT, ERROR, CLEAR_ERROR , SELECT, LOADING} from './Types';
 import axios from 'axios';
 import { API } from "../../config/config.json";
 
@@ -7,11 +7,19 @@ export const searchTournament = () => {
     return async (dispatch, getState) => {
         const keyword= getState().search.keyword
         if(!keyword){
+            dispatch({
+                type: SEARCH_RESULT,
+                payload: []
+            });
             return dispatch({
                 type: CLEAR_ERROR
             });
         }
         if(keyword && keyword.length < 2){
+            dispatch({
+                type: SEARCH_RESULT,
+                payload: []
+            });
            return dispatch({
                 type: ERROR,
                 payload: {

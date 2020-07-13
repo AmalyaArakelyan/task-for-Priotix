@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 //redux
 import {connect} from "react-redux";
 //Bootstrap
@@ -31,6 +32,10 @@ function NavBar(props) {
        </Navbar>
   );
 }
+NavBar.propTypes = {
+    selected: PropTypes.object
+};
+
 const mapStateToProps = state => {
     return {
         selected:state.tournament.selected,

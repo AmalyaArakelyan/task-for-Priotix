@@ -7,6 +7,7 @@ import "./Search.scss"
 import SearchIcon from "../../assets/icons/search.png"
 //Actions
 import {changeKeyword, clearKeyword} from "../../redux/Search/SearchAction"
+import PropTypes from "prop-types";
 
 function Search(props) {
   const {changeKeyword, keyword , location, clearKeyword} = props
@@ -17,7 +18,7 @@ function Search(props) {
 
   useEffect(() => {
     clearKeyword()    
-  }, [location])
+  }, [location, clearKeyword])
 
   return (
     <div className="form-group search">
@@ -33,6 +34,12 @@ function Search(props) {
     </div>
   );
 }
+Search.propTypes = {
+  changeKeyword: PropTypes.func,
+  clearKeyword: PropTypes.func,
+  selected: PropTypes.array,
+  location: PropTypes.object,
+};
 
 const mapStateToProps = state => {
   return {

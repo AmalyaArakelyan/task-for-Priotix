@@ -6,8 +6,9 @@ import Item from "./Item.js"
 import Error from "./Error.js"
 import Loading from "../layout/Loading.js"
 //Actions
-import {searchTournament, selectItem, deleteItem} from "../../redux/Tournament/TournamentAction.js"
+import {searchTournament, selectItem} from "../../redux/Tournament/TournamentAction.js"
 import {ListGroup} from "react-bootstrap";
+import PropTypes from "prop-types";
 
 
 function Result(props) {
@@ -19,12 +20,11 @@ function Result(props) {
         searchResult,
         selectItem,
         selected,
-        deleteItem
     } = props
     
     useEffect(() => {
         searchTournament()
-    }, [keyword])
+    }, [keyword, searchTournament])
     
     const select = (item) =>{
         if(!selected[item.id]){
@@ -58,6 +58,15 @@ function Result(props) {
         </div>
     );
 }
+Result.propTypes = {
+    error: PropTypes.object,
+    keyword: PropTypes.string ,
+    loading: PropTypes.bool,
+    searchTournament: PropTypes.func,
+    searchResult: PropTypes.array,
+    selectItem: PropTypes.func,
+    selected: PropTypes.object,
+};
 
 const mapStateToProps = state => {
     return {
@@ -73,7 +82,6 @@ const mapStateToAction = dispatch => {
     return {
         searchTournament: () => dispatch(searchTournament()),
         selectItem: (item) => dispatch(selectItem(item)),
-        deleteItem: (id) => dispatch(deleteItem(id))
     };
 };
 

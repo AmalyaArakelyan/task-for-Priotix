@@ -4,7 +4,7 @@ import './Loading.scss';
 //Components
 import ReactLoading from 'react-loading';
 
-function Loading(props) {
+function Loading() {
   return (
     <div className="lazy">
       <ReactLoading type={'bars'} color={'black'} />

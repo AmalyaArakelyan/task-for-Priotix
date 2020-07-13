@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 
 export default function Error(props) {
@@ -11,3 +12,7 @@ export default function Error(props) {
         :null
     );
 }
+
+Error.propTypes = {
+    error: PropTypes.object
+};
